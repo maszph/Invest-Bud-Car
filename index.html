@@ -35,12 +35,12 @@ html { scroll-behavior: smooth; }
   transform: translateX(0);
 }
 
-/* Gallery Slider */
+/* Gallery Slider - poprawione na mobile (poziome zdjęcia) */
 #gallery-slider {
   position: relative;
   overflow: hidden;
   border-radius: 16px;
-  height: 420px;
+  height: 380px;           /* mniejsza wysokość na telefonie */
 }
 
 @media (min-width: 768px) {
@@ -72,11 +72,13 @@ html { scroll-behavior: smooth; }
   width: 28px;
 }
 
-/* Strzałki na mobile */
-#prevBtn, #nextBtn {
-  width: 44px;
-  height: 44px;
-  font-size: 28px;
+/* Kontakt kafelek */
+.contact-card {
+  transition: all 0.3s ease;
+}
+.contact-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
 }
 </style>
 </head>
@@ -104,7 +106,6 @@ html { scroll-behavior: smooth; }
     <a href="#kontakt" class="mobile-link block py-4 text-lg border-b border-white/10">Kontakt</a>
   </div>
 
-  <!-- Overlay -->
   <div id="overlay" class="fixed inset-0 bg-black/60 z-40 hidden md:hidden"></div>
 </header>
 
@@ -150,10 +151,68 @@ html { scroll-behavior: smooth; }
   </div>
 </section>
 
-<!-- GALERIA -->
-<section id="galeria" class="bg-gray-100 text-black py-20 section">
+<!-- NOWY KAFELEK "Prezentacja" / Kontakt -->
+<section class="bg-gray-100 text-black py-16 section">
   <div class="max-w-7xl mx-auto px-6">
-    <h2 class="text-2xl md:text-3xl font-semibold mb-10">Galeria</h2>
+    <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-8 md:p-10 contact-card">
+      <h2 class="text-3xl font-semibold mb-2">Prezentacja</h2>
+      <h3 class="text-2xl font-medium text-yellow-600 mb-6">INVEST BUD CAR</h3>
+      
+      <p class="text-lg leading-relaxed mb-8">
+        Sprzedaż, serwis, części do pojazdów specjalnych różnych marek i pojazdów użytkowych.
+      </p>
+
+      <div class="space-y-6">
+        <div class="flex items-start gap-4">
+          <div class="text-yellow-500 mt-1">👤</div>
+          <div>
+            <p class="font-medium">Dawid Sobczyk – właściciel</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4">
+          <div class="text-yellow-500 mt-1">🏢</div>
+          <div>
+            <p>Strona · Warsztat mechaniczny · Warsztat samochodowy · Firma transportowa</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4">
+          <div class="text-yellow-500 mt-1">📍</div>
+          <div>
+            <p class="font-medium">Piekary Śląskie, Poland</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4">
+          <div class="text-yellow-500 mt-1">📞</div>
+          <div>
+            <a href="tel:509062038" class="font-medium hover:text-yellow-600">509 062 038</a>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4">
+          <div class="text-yellow-500 mt-1">✉️</div>
+          <div>
+            <a href="mailto:dawid@invest-bud-car.pl" class="font-medium hover:text-yellow-600">dawid@invest-bud-car.pl</a>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4">
+          <div class="text-yellow-500 mt-1">⭐</div>
+          <div>
+            <p>Jeszcze nie oceniono (3 opinie)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIA -->
+<section id="galeria" class="bg-black text-white py-20 section">
+  <div class="max-w-7xl mx-auto px-6">
+    <h2 class="text-2xl md:text-3xl font-semibold mb-10 text-white">Galeria</h2>
 
     <div id="gallery-slider" class="relative shadow-2xl">
 
@@ -176,11 +235,9 @@ html { scroll-behavior: smooth; }
       <div class="slide" style="background-image: url('16.jpg')"></div>
       <div class="slide" style="background-image: url('17.jpg')"></div>
 
-      <!-- Strzałki -->
-      <button id="prevBtn" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center transition z-20">‹</button>
-      <button id="nextBtn" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center transition z-20">›</button>
+      <button id="prevBtn" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black text-white rounded-full flex items-center justify-center transition z-20">‹</button>
+      <button id="nextBtn" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black text-white rounded-full flex items-center justify-center transition z-20">›</button>
 
-      <!-- Kropki -->
       <div id="dots" class="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-20"></div>
     </div>
   </div>
@@ -208,26 +265,27 @@ html { scroll-behavior: smooth; }
 </footer>
 
 <script>
-// Smooth scroll + zamykanie menu
+// Smooth scroll + zamykanie menu mobilnego
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function(e) {
     e.preventDefault();
-    document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-    
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+
     if (window.innerWidth < 768) {
       closeMobileMenu();
     }
   });
 });
 
-// Navbar
+// Navbar scroll
 window.addEventListener('scroll', () => {
   const nav = document.getElementById('navbar');
   if (window.scrollY > 50) nav.classList.add('nav-scroll');
   else nav.classList.remove('nav-scroll');
 });
 
-// Reveal
+// Reveal sections
 const sections = document.querySelectorAll('.section');
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
@@ -236,7 +294,7 @@ const observer = new IntersectionObserver(entries => {
 });
 sections.forEach(sec => observer.observe(sec));
 
-// Mobile Menu
+// Mobile Menu – poprawione
 const menuBtn = document.getElementById('menuBtn');
 const mobileMenu = document.getElementById('mobileMenu');
 const overlay = document.getElementById('overlay');
@@ -252,12 +310,17 @@ function openMobileMenu() {
 function closeMobileMenu() {
   mobileMenu.classList.remove('open');
   overlay.classList.add('hidden');
-  setTimeout(() => mobileMenu.classList.add('hidden'), 400);
+  setTimeout(() => {
+    mobileMenu.classList.add('hidden');
+  }, 350);
 }
 
 menuBtn.addEventListener('click', () => {
-  if (mobileMenu.classList.contains('open')) closeMobileMenu();
-  else openMobileMenu();
+  if (mobileMenu.classList.contains('open')) {
+    closeMobileMenu();
+  } else {
+    openMobileMenu();
+  }
 });
 
 overlay.addEventListener('click', closeMobileMenu);
