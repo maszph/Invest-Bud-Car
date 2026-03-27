@@ -22,18 +22,31 @@ html { scroll-behavior: smooth; }
   background-position: center;
   transition: opacity 1s ease, transform 6s ease;
 }
-
 .hero-bg.zoom { transform: scale(1.08); }
 
 .nav-scroll { background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); }
 
-/* Slider galerii */
+/* Mobile Menu Animation */
+#mobileMenu {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(100%);
+}
+#mobileMenu.open {
+  transform: translateX(0);
+}
+
+/* Gallery Slider */
 #gallery-slider {
   position: relative;
   overflow: hidden;
   border-radius: 16px;
-  height: 520px;
-  md-height: 620px;
+  height: 420px;
+}
+
+@media (min-width: 768px) {
+  #gallery-slider {
+    height: 620px;
+  }
 }
 
 #gallery-slider .slide {
@@ -58,6 +71,13 @@ html { scroll-behavior: smooth; }
   background-color: #eab308;
   width: 28px;
 }
+
+/* Strzałki na mobile */
+#prevBtn, #nextBtn {
+  width: 44px;
+  height: 44px;
+  font-size: 28px;
+}
 </style>
 </head>
 
@@ -74,14 +94,18 @@ html { scroll-behavior: smooth; }
       <a href="#kontakt" class="hover:text-yellow-400">Kontakt</a>
     </nav>
 
-    <button id="menuBtn" class="md:hidden">☰</button>
+    <button id="menuBtn" class="md:hidden text-3xl focus:outline-none">☰</button>
   </div>
 
-  <div id="mobileMenu" class="hidden md:hidden bg-black px-6 pb-4">
-    <a href="#oferta" class="block py-2">Oferta</a>
-    <a href="#galeria" class="block py-2">Galeria</a>
-    <a href="#kontakt" class="block py-2">Kontakt</a>
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="fixed top-0 right-0 bottom-0 w-80 bg-black/95 backdrop-blur-lg z-50 flex flex-col pt-20 px-8 hidden md:hidden">
+    <a href="#oferta" class="mobile-link block py-4 text-lg border-b border-white/10">Oferta</a>
+    <a href="#galeria" class="mobile-link block py-4 text-lg border-b border-white/10">Galeria</a>
+    <a href="#kontakt" class="mobile-link block py-4 text-lg border-b border-white/10">Kontakt</a>
   </div>
+
+  <!-- Overlay -->
+  <div id="overlay" class="fixed inset-0 bg-black/60 z-40 hidden md:hidden"></div>
 </header>
 
 <!-- HERO -->
@@ -94,12 +118,10 @@ html { scroll-behavior: smooth; }
     <h1 class="text-3xl md:text-5xl font-semibold mb-6 leading-tight max-w-2xl">
       Pojazdy specjalne i użytkowe
     </h1>
-
     <p class="text-white/80 mb-8 max-w-xl">
       Sprzedaż, serwis oraz części do pojazdów specjalnych.<br>
       Sprawdzone rozwiązania dla firm.
     </p>
-
     <div class="flex gap-4 flex-wrap">
       <a href="#oferta" class="bg-yellow-400 text-black px-6 py-3 rounded-lg">Oferta</a>
       <a href="#kontakt" class="border border-white/30 px-6 py-3 rounded-lg">Kontakt</a>
@@ -111,18 +133,15 @@ html { scroll-behavior: smooth; }
 <section id="oferta" class="bg-white text-black py-20 section">
   <div class="max-w-7xl mx-auto px-6">
     <h2 class="text-2xl md:text-3xl font-semibold mb-10">Nasza oferta</h2>
-
     <div class="grid md:grid-cols-3 gap-8">
       <div class="border p-6 rounded-xl hover:shadow-lg transition">
         <h3 class="text-lg font-semibold mb-3">Sprzedaż</h3>
         <p class="text-gray-600">Pojazdy dostosowane do potrzeb klientów.</p>
       </div>
-
       <div class="border p-6 rounded-xl hover:shadow-lg transition">
         <h3 class="text-lg font-semibold mb-3">Serwis</h3>
         <p class="text-gray-600">Profesjonalna obsługa techniczna.</p>
       </div>
-
       <div class="border p-6 rounded-xl hover:shadow-lg transition">
         <h3 class="text-lg font-semibold mb-3">Części</h3>
         <p class="text-gray-600">Oryginalne i zamienne komponenty.</p>
@@ -131,14 +150,13 @@ html { scroll-behavior: smooth; }
   </div>
 </section>
 
-<!-- GALERIA - AUTOSLIDER -->
+<!-- GALERIA -->
 <section id="galeria" class="bg-gray-100 text-black py-20 section">
   <div class="max-w-7xl mx-auto px-6">
     <h2 class="text-2xl md:text-3xl font-semibold mb-10">Galeria</h2>
 
-    <div id="gallery-slider" class="relative h-[520px] md:h-[620px] shadow-2xl">
+    <div id="gallery-slider" class="relative shadow-2xl">
 
-      <!-- Slajdy -->
       <div class="slide active" style="background-image: url('0.jpg')"></div>
       <div class="slide" style="background-image: url('1.jpg')"></div>
       <div class="slide" style="background-image: url('2.jpg')"></div>
@@ -159,10 +177,8 @@ html { scroll-behavior: smooth; }
       <div class="slide" style="background-image: url('17.jpg')"></div>
 
       <!-- Strzałki -->
-      <button id="prevBtn" 
-        class="absolute left-6 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white w-12 h-12 rounded-full flex items-center justify-center text-3xl transition z-20">‹</button>
-      <button id="nextBtn" 
-        class="absolute right-6 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white w-12 h-12 rounded-full flex items-center justify-center text-3xl transition z-20">›</button>
+      <button id="prevBtn" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center transition z-20">‹</button>
+      <button id="nextBtn" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center transition z-20">›</button>
 
       <!-- Kropki -->
       <div id="dots" class="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-20"></div>
@@ -192,22 +208,26 @@ html { scroll-behavior: smooth; }
 </footer>
 
 <script>
-// Smooth scroll
+// Smooth scroll + zamykanie menu
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function(e) {
     e.preventDefault();
     document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+    
+    if (window.innerWidth < 768) {
+      closeMobileMenu();
+    }
   });
 });
 
-// Navbar scroll
+// Navbar
 window.addEventListener('scroll', () => {
   const nav = document.getElementById('navbar');
   if (window.scrollY > 50) nav.classList.add('nav-scroll');
   else nav.classList.remove('nav-scroll');
 });
 
-// Reveal sections
+// Reveal
 const sections = document.querySelectorAll('.section');
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
@@ -216,21 +236,37 @@ const observer = new IntersectionObserver(entries => {
 });
 sections.forEach(sec => observer.observe(sec));
 
-// Mobile menu
-const btn = document.getElementById('menuBtn');
-const menu = document.getElementById('mobileMenu');
-btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+// Mobile Menu
+const menuBtn = document.getElementById('menuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+const overlay = document.getElementById('overlay');
 
-// === HERO SLIDER ===
-const heroImages = [
-  '0.jpg','1.jpg','2.jpg','3.jpg','4.jpg','5.jpg','6.jpg','7.jpg','8.jpg','9.jpg',
-  '10.jpg','11.jpg','12.jpg','13.jpg','14.jpg','15.jpg','16.jpg','17.jpg'
-];
+function openMobileMenu() {
+  mobileMenu.classList.remove('hidden');
+  setTimeout(() => {
+    mobileMenu.classList.add('open');
+    overlay.classList.remove('hidden');
+  }, 10);
+}
 
+function closeMobileMenu() {
+  mobileMenu.classList.remove('open');
+  overlay.classList.add('hidden');
+  setTimeout(() => mobileMenu.classList.add('hidden'), 400);
+}
+
+menuBtn.addEventListener('click', () => {
+  if (mobileMenu.classList.contains('open')) closeMobileMenu();
+  else openMobileMenu();
+});
+
+overlay.addEventListener('click', closeMobileMenu);
+
+// Hero Slider
+const heroImages = ['0.jpg','1.jpg','2.jpg','3.jpg','4.jpg','5.jpg','6.jpg','7.jpg','8.jpg','9.jpg','10.jpg','11.jpg','12.jpg','13.jpg','14.jpg','15.jpg','16.jpg','17.jpg'];
 let heroCurrent = 0;
 const bg1 = document.getElementById('bg1');
 const bg2 = document.getElementById('bg2');
-
 bg1.style.backgroundImage = `url(${heroImages[0]})`;
 
 setInterval(() => {
@@ -238,7 +274,6 @@ setInterval(() => {
   bg2.style.backgroundImage = `url(${heroImages[heroCurrent]})`;
   bg2.style.opacity = 1;
   bg2.classList.add('zoom');
-
   setTimeout(() => {
     bg1.style.backgroundImage = bg2.style.backgroundImage;
     bg2.style.opacity = 0;
@@ -246,7 +281,7 @@ setInterval(() => {
   }, 1000);
 }, 5000);
 
-// === GALERIA AUTOSLIDER ===
+// Gallery Slider
 const slides = document.querySelectorAll('#gallery-slider .slide');
 const dotsContainer = document.getElementById('dots');
 let currentSlide = 0;
