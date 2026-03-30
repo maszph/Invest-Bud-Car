@@ -26,29 +26,30 @@ html { scroll-behavior: smooth; }
 
 .nav-scroll { background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); }
 
-/* Mobile Menu Animation */
+/* KURWA PEŁNE CZARNE TŁO – ŻADNEGO PRZEŚWITU, ŻADNEGO BLURU, ŻADNYCH RGBA */
 #mobileMenu {
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   transform: translateX(100%);
+  background-color: #000000 !important;     /* pełne czarne */
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: -20px 0 40px -15px rgba(0, 0, 0, 0.9);
+  isolation: isolate;                       /* wymusza nowy layer w przeglądarce */
 }
 #mobileMenu.open {
   transform: translateX(0);
 }
 
-/* Gallery Slider - poprawione na mobile (poziome zdjęcia) */
+/* reszta stylów bez zmian */
 #gallery-slider {
   position: relative;
   overflow: hidden;
   border-radius: 16px;
-  height: 380px;           /* mniejsza wysokość na telefonie */
+  height: 380px;
 }
-
 @media (min-width: 768px) {
-  #gallery-slider {
-    height: 620px;
-  }
+  #gallery-slider { height: 620px; }
 }
-
 #gallery-slider .slide {
   position: absolute;
   inset: 0;
@@ -57,22 +58,14 @@ html { scroll-behavior: smooth; }
   background-size: cover;
   background-position: center;
 }
-
 #gallery-slider .slide.active {
   opacity: 1;
   z-index: 10;
 }
-
-#gallery-slider .dot {
-  transition: all 0.3s ease;
-}
-
 #gallery-slider .dot.active {
   background-color: #eab308;
   width: 28px;
 }
-
-/* Kontakt kafelek */
 .contact-card {
   transition: all 0.3s ease;
 }
@@ -99,14 +92,16 @@ html { scroll-behavior: smooth; }
     <button id="menuBtn" class="md:hidden text-3xl focus:outline-none">☰</button>
   </div>
 
-  <!-- Mobile Menu -->
-  <div id="mobileMenu" class="fixed top-0 right-0 bottom-0 w-80 bg-black/95 backdrop-blur-lg z-50 flex flex-col pt-20 px-8 hidden md:hidden">
+  <!-- MOBILE MENU – pełne czarne tło -->
+  <div id="mobileMenu" class="fixed top-0 right-0 bottom-0 w-80 z-[9999] flex flex-col pt-20 px-8 bg-black hidden md:hidden">
     <a href="#oferta" class="mobile-link block py-4 text-lg border-b border-white/10">Oferta</a>
+    <a href="#oferta" class="mobile-link block py-4 text-lg border-b border-white/10">Nasze Usługi</a>
+    <a href="#prezentacja" class="mobile-link block py-4 text-lg border-b border-white/10">Prezentacja</a>
     <a href="#galeria" class="mobile-link block py-4 text-lg border-b border-white/10">Galeria</a>
     <a href="#kontakt" class="mobile-link block py-4 text-lg border-b border-white/10">Kontakt</a>
   </div>
 
-  <div id="overlay" class="fixed inset-0 bg-black/60 z-40 hidden md:hidden"></div>
+  <div id="overlay" class="fixed inset-0 bg-black/90 z-40 hidden md:hidden"></div>
 </header>
 
 <!-- HERO -->
@@ -151,8 +146,8 @@ html { scroll-behavior: smooth; }
   </div>
 </section>
 
-<!-- NOWY KAFELEK "Prezentacja" / Kontakt -->
-<section class="bg-gray-100 text-black py-16 section">
+<!-- PREZENTACJA -->
+<section id="prezentacja" class="bg-gray-100 text-black py-16 section">
   <div class="max-w-7xl mx-auto px-6">
     <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-8 md:p-10 contact-card">
       <h2 class="text-3xl font-semibold mb-2">Prezentacja</h2>
@@ -287,7 +282,7 @@ const observer = new IntersectionObserver(entries => {
 });
 sections.forEach(sec => observer.observe(sec));
 
-// Mobile Menu – poprawione
+// Mobile Menu
 const menuBtn = document.getElementById('menuBtn');
 const mobileMenu = document.getElementById('mobileMenu');
 const overlay = document.getElementById('overlay');
