@@ -274,11 +274,51 @@ html { scroll-behavior: smooth; }
       <p class="text-white/70">Skontaktuj się z nami aby poznać ofertę.</p>
     </div>
 
-    <form class="flex flex-col gap-4">
-      <input type="text" placeholder="Imię" class="p-3 bg-white/10 border border-white/20 rounded">
-      <input type="email" placeholder="Email" class="p-3 bg-white/10 border border-white/20 rounded">
-      <textarea placeholder="Wiadomość" class="p-3 bg-white/10 border border-white/20 rounded h-32"></textarea>
-      <button class="bg-yellow-400 text-black py-3 rounded">Wyślij</button>
+    <!-- === FORMULARZ PODPIĘTY POD EMAIL === -->
+    <form action="https://formsubmit.co/pawelekhanzel@gmail.com" 
+          method="POST"
+          class="flex flex-col gap-4">
+          
+      <!-- Imię -->
+      <div>
+        <label class="block text-white/70 text-sm mb-1">Imię</label>
+        <input type="text" 
+               name="imie" 
+               placeholder="Imię" 
+               required
+               class="w-full p-3 bg-white/10 border border-white/20 rounded text-white placeholder:text-white/50">
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label class="block text-white/70 text-sm mb-1">Email</label>
+        <input type="email" 
+               name="email" 
+               placeholder="Email" 
+               required
+               class="w-full p-3 bg-white/10 border border-white/20 rounded text-white placeholder:text-white/50">
+      </div>
+
+      <!-- Wiadomość -->
+      <div>
+        <label class="block text-white/70 text-sm mb-1">Wiadomość</label>
+        <textarea name="wiadomosc" 
+                  placeholder="Wiadomość" 
+                  required
+                  rows="6"
+                  class="w-full p-3 bg-white/10 border border-white/20 rounded text-white placeholder:text-white/50 resize-y"></textarea>
+      </div>
+
+      <!-- Ukryte pola (dla lepszego działania) -->
+      <input type="hidden" name="_subject" value="Nowa wiadomość z formularza InvestBudCar!">
+      <!-- <input type="hidden" name="_next" value="https://invest-bud-car.pl/#kontakt"> <!-- po wysłaniu wraca na stronę --> -->
+      <input type="hidden" name="_captcha" value="true"> <!-- wyłącza captcha (możesz zostawić true jeśli chcesz) -->
+
+      <!-- Przycisk -->
+      <button type="submit" 
+              class="bg-yellow-400 hover:bg-yellow-500 text-black font-medium py-3 rounded transition">
+        Wyślij
+      </button>
     </form>
   </div>
 </section>
