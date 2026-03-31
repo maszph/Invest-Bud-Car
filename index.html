@@ -26,21 +26,52 @@ html { scroll-behavior: smooth; }
 
 .nav-scroll { background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); }
 
-/* KURWA PEŁNE CZARNE TŁO – ŻADNEGO PRZEŚWITU, ŻADNEGO BLURU, ŻADNYCH RGBA */
+/* MOBILE MENU – pełne czarne tło, bez żadnych prześwitów */
 #mobileMenu {
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  transform: translateX(100%);
-  background-color: #000000 !important;     /* pełne czarne */
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 280px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  padding-top: 5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  /* SOLIDNE czarne tło – żadne Tailwind ani backdrop nie wpłynie */
+  background: #000000 !important;
+  background-color: #000000 !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  box-shadow: -20px 0 40px -15px rgba(0, 0, 0, 0.9);
-  isolation: isolate;                       /* wymusza nowy layer w przeglądarce */
+  box-shadow: -4px 0 30px rgba(0,0,0,0.9);
+  /* Animacja przez transform, NIE przez display */
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Izolacja od tła strony */
+  isolation: isolate;
+  will-change: transform;
 }
 #mobileMenu.open {
   transform: translateX(0);
 }
 
-/* reszta stylów bez zmian */
+/* Overlay */
+#overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 9998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+#overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Gallery slider */
 #gallery-slider {
   position: relative;
   overflow: hidden;
@@ -85,24 +116,30 @@ html { scroll-behavior: smooth; }
 
     <nav class="hidden md:flex gap-8 text-sm">
       <a href="#oferta" class="hover:text-yellow-400">Oferta</a>
+      <a href="#nasza-oferta" class="hover:text-yellow-400">Nasze Usługi</a>
+      <a href="#prezentacja" class="hover:text-yellow-400">Prezentacja</a>
       <a href="#galeria" class="hover:text-yellow-400">Galeria</a>
       <a href="#kontakt" class="hover:text-yellow-400">Kontakt</a>
     </nav>
 
-    <button id="menuBtn" class="md:hidden text-3xl focus:outline-none">☰</button>
+    <button id="menuBtn" class="md:hidden text-3xl focus:outline-none z-[10000] relative" aria-label="Menu">☰</button>
   </div>
-
-  <!-- MOBILE MENU – pełne czarne tło -->
-  <div id="mobileMenu" class="fixed top-0 right-0 bottom-0 w-80 z-[9999] flex flex-col pt-20 px-8 bg-black hidden md:hidden">
-    <a href="#oferta" class="mobile-link block py-4 text-lg border-b border-white/10">Oferta</a>
-    <a href="#oferta" class="mobile-link block py-4 text-lg border-b border-white/10">Nasze Usługi</a>
-    <a href="#prezentacja" class="mobile-link block py-4 text-lg border-b border-white/10">Prezentacja</a>
-    <a href="#galeria" class="mobile-link block py-4 text-lg border-b border-white/10">Galeria</a>
-    <a href="#kontakt" class="mobile-link block py-4 text-lg border-b border-white/10">Kontakt</a>
-  </div>
-
-  <div id="overlay" class="fixed inset-0 bg-black/90 z-40 hidden md:hidden"></div>
 </header>
+
+<!-- MOBILE MENU – POZA headerem, osobny element na poziomie body -->
+<div id="mobileMenu" aria-hidden="true">
+  <!-- Przycisk zamknięcia -->
+  <button id="closeBtn" class="absolute top-5 right-6 text-3xl text-white focus:outline-none">✕</button>
+
+  <a href="#oferta" class="mobile-link block py-4 text-lg border-b border-white/10 text-white hover:text-yellow-400 transition-colors">Oferta</a>
+  <a href="#nasza-oferta" class="mobile-link block py-4 text-lg border-b border-white/10 text-white hover:text-yellow-400 transition-colors">Nasze Usługi</a>
+  <a href="#prezentacja" class="mobile-link block py-4 text-lg border-b border-white/10 text-white hover:text-yellow-400 transition-colors">Prezentacja</a>
+  <a href="#galeria" class="mobile-link block py-4 text-lg border-b border-white/10 text-white hover:text-yellow-400 transition-colors">Galeria</a>
+  <a href="#kontakt" class="mobile-link block py-4 text-lg text-white hover:text-yellow-400 transition-colors">Kontakt</a>
+</div>
+
+<!-- Overlay -->
+<div id="overlay"></div>
 
 <!-- HERO -->
 <section class="relative min-h-screen flex items-center section overflow-hidden">
@@ -141,6 +178,31 @@ html { scroll-behavior: smooth; }
       <div class="border p-6 rounded-xl hover:shadow-lg transition">
         <h3 class="text-lg font-semibold mb-3">Części</h3>
         <p class="text-gray-600">Oryginalne i zamienne komponenty.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NASZA OFERTA (dodatkowa sekcja) -->
+<section id="nasza-oferta" class="bg-gray-50 text-black py-20 section">
+  <div class="max-w-7xl mx-auto px-6">
+    <h2 class="text-2xl md:text-3xl font-semibold mb-10">Nasze Usługi</h2>
+    <div class="grid md:grid-cols-2 gap-8">
+      <div class="bg-white border p-6 rounded-xl hover:shadow-lg transition">
+        <h3 class="text-lg font-semibold mb-3">Pojazdy specjalne</h3>
+        <p class="text-gray-600">Szeroki wybór pojazdów specjalnych różnych marek, w tym wozy asenizacyjne, hakowce, pojazdy komunalne i inne.</p>
+      </div>
+      <div class="bg-white border p-6 rounded-xl hover:shadow-lg transition">
+        <h3 class="text-lg font-semibold mb-3">Pojazdy użytkowe</h3>
+        <p class="text-gray-600">Ciężarówki, naczepy i inne pojazdy użytkowe przystosowane do wymagań klientów biznesowych.</p>
+      </div>
+      <div class="bg-white border p-6 rounded-xl hover:shadow-lg transition">
+        <h3 class="text-lg font-semibold mb-3">Serwis i naprawy</h3>
+        <p class="text-gray-600">Profesjonalne warsztaty mechaniczne z doświadczoną kadrą techniczną oraz nowoczesnym wyposażeniem.</p>
+      </div>
+      <div class="bg-white border p-6 rounded-xl hover:shadow-lg transition">
+        <h3 class="text-lg font-semibold mb-3">Doradztwo</h3>
+        <p class="text-gray-600">Pomagamy wybrać optymalne rozwiązania dla Twojej firmy — od doboru pojazdu po konfigurację zabudowy.</p>
       </div>
     </div>
   </div>
@@ -223,8 +285,8 @@ html { scroll-behavior: smooth; }
       <div class="slide" style="background-image: url('16.jpg')"></div>
       <div class="slide" style="background-image: url('17.jpg')"></div>
 
-      <button id="prevBtn" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black text-white rounded-full flex items-center justify-center transition z-20">‹</button>
-      <button id="nextBtn" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black text-white rounded-full flex items-center justify-center transition z-20">›</button>
+      <button id="prevBtn" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black text-white w-10 h-10 rounded-full flex items-center justify-center transition z-20 text-xl">‹</button>
+      <button id="nextBtn" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black text-white w-10 h-10 rounded-full flex items-center justify-center transition z-20 text-xl">›</button>
 
       <div id="dots" class="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-20"></div>
     </div>
@@ -253,16 +315,13 @@ html { scroll-behavior: smooth; }
 </footer>
 
 <script>
-// Smooth scroll + zamykanie menu mobilnego
+// Smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function(e) {
     e.preventDefault();
     const target = document.querySelector(this.getAttribute('href'));
     if (target) target.scrollIntoView({ behavior: 'smooth' });
-
-    if (window.innerWidth < 768) {
-      closeMobileMenu();
-    }
+    if (window.innerWidth < 768) closeMobileMenu();
   });
 });
 
@@ -282,36 +341,40 @@ const observer = new IntersectionObserver(entries => {
 });
 sections.forEach(sec => observer.observe(sec));
 
-// Mobile Menu
-const menuBtn = document.getElementById('menuBtn');
+// ─── MOBILE MENU ─────────────────────────────────────────────────────────────
+const menuBtn   = document.getElementById('menuBtn');
+const closeBtn  = document.getElementById('closeBtn');
 const mobileMenu = document.getElementById('mobileMenu');
-const overlay = document.getElementById('overlay');
+const overlay    = document.getElementById('overlay');
 
 function openMobileMenu() {
-  mobileMenu.classList.remove('hidden');
-  setTimeout(() => {
-    mobileMenu.classList.add('open');
-    overlay.classList.remove('hidden');
-  }, 10);
+  mobileMenu.classList.add('open');
+  mobileMenu.setAttribute('aria-hidden', 'false');
+  overlay.classList.add('active');
+  menuBtn.textContent = '✕';
+  document.body.style.overflow = 'hidden'; // zapobiega scrollowaniu pod menu
 }
 
 function closeMobileMenu() {
   mobileMenu.classList.remove('open');
-  overlay.classList.add('hidden');
-  setTimeout(() => {
-    mobileMenu.classList.add('hidden');
-  }, 350);
+  mobileMenu.setAttribute('aria-hidden', 'true');
+  overlay.classList.remove('active');
+  menuBtn.textContent = '☰';
+  document.body.style.overflow = '';
 }
 
 menuBtn.addEventListener('click', () => {
-  if (mobileMenu.classList.contains('open')) {
-    closeMobileMenu();
-  } else {
-    openMobileMenu();
-  }
+  mobileMenu.classList.contains('open') ? closeMobileMenu() : openMobileMenu();
 });
 
+closeBtn.addEventListener('click', closeMobileMenu);
 overlay.addEventListener('click', closeMobileMenu);
+
+// Zamknij menu po kliknięciu w link
+document.querySelectorAll('.mobile-link').forEach(link => {
+  link.addEventListener('click', closeMobileMenu);
+});
+// ─────────────────────────────────────────────────────────────────────────────
 
 // Hero Slider
 const heroImages = ['0.jpg','1.jpg','2.jpg','3.jpg','4.jpg','5.jpg','6.jpg','7.jpg','8.jpg','9.jpg','10.jpg','11.jpg','12.jpg','13.jpg','14.jpg','15.jpg','16.jpg','17.jpg'];
@@ -356,13 +419,8 @@ function goToSlide(n) {
   dots[currentSlide].classList.add('active');
 }
 
-function nextSlide() {
-  goToSlide((currentSlide + 1) % slides.length);
-}
-
-function prevSlide() {
-  goToSlide((currentSlide - 1 + slides.length) % slides.length);
-}
+function nextSlide() { goToSlide((currentSlide + 1) % slides.length); }
+function prevSlide()  { goToSlide((currentSlide - 1 + slides.length) % slides.length); }
 
 let autoSlider = setInterval(nextSlide, slideIntervalTime);
 
@@ -383,7 +441,6 @@ sliderContainer.addEventListener('mouseenter', () => clearInterval(autoSlider));
 sliderContainer.addEventListener('mouseleave', () => {
   autoSlider = setInterval(nextSlide, slideIntervalTime);
 });
-
 </script>
 
 </body>
