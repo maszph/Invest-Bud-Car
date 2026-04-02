@@ -12,20 +12,15 @@
 
 <header class="subpage-header fixed w-full z-50">
   <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
-    <img src="logo.png" class="h-10">
-    <a href="index.html" class="flex items-center gap-2 text-yellow-400 hover:text-white text-lg">
-      ← Powrót do strony głównej
-    </a>
+    <a href="index.html"><img src="logo.png" class="h-10"></a>
+    <a href="index.html" class="flex items-center gap-2 text-yellow-400 hover:text-white text-lg">← Powrót do strony głównej</a>
   </div>
 </header>
 
 <section class="pt-24 pb-20">
   <div class="max-w-7xl mx-auto px-6">
     <h1 class="text-4xl font-semibold mb-10">Części zamienne</h1>
-
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="parts-grid">
-      <!-- Części będą dodane przez JS -->
-    </div>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="parts-grid"></div>
   </div>
 </section>
 
@@ -42,6 +37,7 @@
   © 2026 InvestBudCar
 </footer>
 
+<script src="script.js"></script>
 <script>
 const parts = [
   {name: "Filtr hydrauliczny", img: "0.jpg"},
@@ -58,10 +54,7 @@ const grid = document.getElementById('parts-grid');
 parts.forEach(part => {
   const div = document.createElement('div');
   div.className = "bg-white/10 rounded-2xl overflow-hidden cursor-pointer hover:scale-105 transition";
-  div.innerHTML = `
-    <div class="aspect-square bg-cover bg-center" style="background-image: url('${part.img}')"></div>
-    <div class="p-4 text-center font-medium">${part.name}</div>
-  `;
+  div.innerHTML = `<div class="aspect-square bg-cover bg-center" style="background-image: url('${part.img}')"></div><div class="p-4 text-center font-medium">${part.name}</div>`;
   div.onclick = () => showModal(part);
   grid.appendChild(div);
 });
@@ -72,7 +65,6 @@ function showModal(part) {
   document.getElementById('modal').classList.remove('hidden');
   document.getElementById('modal').classList.add('flex');
 }
-
 function closeModal() {
   const modal = document.getElementById('modal');
   modal.classList.add('hidden');

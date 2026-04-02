@@ -13,14 +13,19 @@
 <!-- NAVBAR -->
 <header id="navbar" class="fixed w-full z-50 transition-all">
   <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-    <img src="logo.png" class="h-10">
-    <nav class="hidden md:flex gap-8 text-sm">
+    <a href="index.html"><img src="logo.png" class="h-10 cursor-pointer"></a>
+    
+    <nav class="hidden md:flex gap-8 text-sm font-medium">
       <a href="#oferta" class="hover:text-yellow-400">Oferta</a>
+      <a href="sprzedaz.html" class="hover:text-yellow-400">Sprzedaż</a>
+      <a href="serwis.html" class="hover:text-yellow-400">Serwis</a>
+      <a href="czesci.html" class="hover:text-yellow-400">Części</a>
       <a href="#prezentacja" class="hover:text-yellow-400">Prezentacja</a>
       <a href="#galeria" class="hover:text-yellow-400">Galeria</a>
       <a href="#kontakt" class="hover:text-yellow-400">Kontakt</a>
     </nav>
-    <button id="menuBtn" class="md:hidden text-3xl focus:outline-none z-[10000] relative" aria-label="Menu">☰</button>
+
+    <button id="menuBtn" class="md:hidden text-3xl focus:outline-none">☰</button>
   </div>
 </header>
 
@@ -28,6 +33,9 @@
 <div id="mobileMenu" aria-hidden="true">
   <button id="closeBtn" class="absolute top-5 right-6 text-3xl text-white">✕</button>
   <a href="#oferta" class="mobile-link block py-4 text-lg border-b border-white/10">Oferta</a>
+  <a href="sprzedaz.html" class="mobile-link block py-4 text-lg border-b border-white/10">Sprzedaż</a>
+  <a href="serwis.html" class="mobile-link block py-4 text-lg border-b border-white/10">Serwis</a>
+  <a href="czesci.html" class="mobile-link block py-4 text-lg border-b border-white/10">Części</a>
   <a href="#prezentacja" class="mobile-link block py-4 text-lg border-b border-white/10">Prezentacja</a>
   <a href="#galeria" class="mobile-link block py-4 text-lg border-b border-white/10">Galeria</a>
   <a href="#kontakt" class="mobile-link block py-4 text-lg">Kontakt</a>
@@ -49,16 +57,18 @@
       Sprawdzone rozwiązania dla firm.
     </p>
     <div class="flex gap-4 flex-wrap">
-      <a href="#oferta" class="bg-yellow-400 text-black px-6 py-3 rounded-lg">Oferta</a>
+      <a href="#oferta" class="bg-yellow-400 text-black px-6 py-3 rounded-lg">Zobacz ofertę</a>
       <a href="#kontakt" class="border border-white/30 px-6 py-3 rounded-lg">Kontakt</a>
     </div>
   </div>
 </section>
 
-<!-- OFERTA – linki do podstron -->
+<!-- OFERTA -->
 <section id="oferta" class="bg-white text-black py-20 section">
   <div class="max-w-7xl mx-auto px-6">
-    <h2 class="text-2xl md:text-3xl font-semibold mb-10">Nasza oferta</h2>
+    <h2 class="text-2xl md:text-3xl font-semibold mb-3">Nasza oferta</h2>
+    <p class="text-xl text-gray-600 mb-10">Kliknij w wybraną kategorię poniżej i poznaj pełny zakres naszych usług</p>
+    
     <div class="grid md:grid-cols-3 gap-8">
       <a href="sprzedaz.html" class="border p-6 rounded-xl hover:shadow-lg transition group">
         <h3 class="text-lg font-semibold mb-3 group-hover:text-yellow-600">Sprzedaż</h3>
@@ -101,12 +111,27 @@
   <div class="max-w-7xl mx-auto px-6">
     <h2 class="text-2xl md:text-3xl font-semibold mb-10 text-white">Galeria</h2>
     <div id="gallery-slider" class="relative shadow-2xl">
-      <!-- wszystkie slide'y z Twojego oryginalnego kodu -->
       <div class="slide active" style="background-image: url('0.jpg')"></div>
       <div class="slide" style="background-image: url('1.jpg')"></div>
-      <!-- ... reszta do 17.jpg ... -->
-      <button id="prevBtn" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black text-white w-10 h-10 rounded-full flex items-center justify-center text-xl">‹</button>
-      <button id="nextBtn" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black text-white w-10 h-10 rounded-full flex items-center justify-center text-xl">›</button>
+      <div class="slide" style="background-image: url('2.jpg')"></div>
+      <div class="slide" style="background-image: url('3.jpg')"></div>
+      <div class="slide" style="background-image: url('4.jpg')"></div>
+      <div class="slide" style="background-image: url('5.jpg')"></div>
+      <div class="slide" style="background-image: url('6.jpg')"></div>
+      <div class="slide" style="background-image: url('7.jpg')"></div>
+      <div class="slide" style="background-image: url('8.jpg')"></div>
+      <div class="slide" style="background-image: url('9.jpg')"></div>
+      <div class="slide" style="background-image: url('10.jpg')"></div>
+      <div class="slide" style="background-image: url('11.jpg')"></div>
+      <div class="slide" style="background-image: url('12.jpg')"></div>
+      <div class="slide" style="background-image: url('13.jpg')"></div>
+      <div class="slide" style="background-image: url('14.jpg')"></div>
+      <div class="slide" style="background-image: url('15.jpg')"></div>
+      <div class="slide" style="background-image: url('16.jpg')"></div>
+      <div class="slide" style="background-image: url('17.jpg')"></div>
+
+      <button id="prevBtn" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black text-white w-10 h-10 rounded-full flex items-center justify-center transition z-20 text-xl">‹</button>
+      <button id="nextBtn" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black text-white w-10 h-10 rounded-full flex items-center justify-center transition z-20 text-xl">›</button>
       <div id="dots" class="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-20"></div>
     </div>
   </div>
@@ -134,6 +159,6 @@
   © 2026 InvestBudCar
 </footer>
 
-<script src="script.js"></script>   <!-- możesz zostawić cały Twój stary skrypt albo wkleić go tutaj -->
+<script src="script.js"></script>
 </body>
 </html>
