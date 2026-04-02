@@ -17,59 +17,38 @@
   </div>
 </header>
 
-<section class="pt-24 pb-20">
-  <div class="max-w-7xl mx-auto px-6">
-    <h1 class="text-4xl font-semibold mb-10">Części zamienne</h1>
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="parts-grid"></div>
+<section class="pt-24 pb-20 min-h-screen flex items-center">
+  <div class="max-w-7xl mx-auto px-6 text-center">
+    <div class="inline-flex items-center gap-3 bg-white/10 text-white px-6 py-3 rounded-2xl mb-8">
+      <span class="text-3xl">⏳</span>
+      <span class="text-xl font-medium">Wkrótce w ofercie</span>
+    </div>
+    
+    <h1 class="text-5xl md:text-6xl font-semibold mb-6">Części zamienne</h1>
+    <p class="text-2xl text-white/70 max-w-2xl mx-auto">
+      Przygotowujemy dla Ciebie szeroki katalog części do pojazdów specjalnych i użytkowych.
+    </p>
+    <p class="text-lg text-white/50 mt-6">
+      W najbliższym czasie będzie tu pełna oferta z cenami i zdjęciami.
+    </p>
+
+    <div class="mt-16">
+      <a href="index.html#kontakt" 
+         class="inline-block bg-yellow-400 hover:bg-yellow-500 text-black font-medium px-10 py-5 rounded-2xl text-xl transition">
+        Zapytaj o dostępność części
+      </a>
+    </div>
+
+    <p class="text-white/40 mt-20 text-sm">
+      Masz już teraz zapotrzebowanie? Napisz do nas – pomożemy od ręki.
+    </p>
   </div>
 </section>
-
-<!-- MODAL -->
-<div id="modal" class="hidden fixed inset-0 bg-black/90 z-[9999] flex items-center justify-center">
-  <div class="max-w-4xl w-full mx-4 relative">
-    <button onclick="closeModal()" class="absolute -top-10 right-0 text-white text-4xl hover:text-yellow-400">✕</button>
-    <img id="modal-image" class="w-full rounded-2xl shadow-2xl" alt="">
-    <h2 id="modal-name" class="text-3xl font-medium text-center mt-6 text-white"></h2>
-  </div>
-</div>
 
 <footer class="bg-black border-t border-white/10 py-6 text-center text-white/50 text-sm">
   © 2026 InvestBudCar
 </footer>
 
 <script src="script.js"></script>
-<script>
-const parts = [
-  {name: "Filtr hydrauliczny", img: "0.jpg"},
-  {name: "Pompa hydrauliczna", img: "1.jpg"},
-  {name: "Opony przemysłowe 16/70-20", img: "2.jpg"},
-  {name: "Zespół świateł LED", img: "3.jpg"},
-  {name: "Tarcza hamulcowa", img: "4.jpg"},
-  {name: "Wąż wysokociśnieniowy", img: "5.jpg"},
-  {name: "Akumulator 12V 180Ah", img: "6.jpg"},
-  {name: "Łożysko koła", img: "7.jpg"}
-];
-
-const grid = document.getElementById('parts-grid');
-parts.forEach(part => {
-  const div = document.createElement('div');
-  div.className = "bg-white/10 rounded-2xl overflow-hidden cursor-pointer hover:scale-105 transition";
-  div.innerHTML = `<div class="aspect-square bg-cover bg-center" style="background-image: url('${part.img}')"></div><div class="p-4 text-center font-medium">${part.name}</div>`;
-  div.onclick = () => showModal(part);
-  grid.appendChild(div);
-});
-
-function showModal(part) {
-  document.getElementById('modal-image').src = part.img;
-  document.getElementById('modal-name').textContent = part.name;
-  document.getElementById('modal').classList.remove('hidden');
-  document.getElementById('modal').classList.add('flex');
-}
-function closeModal() {
-  const modal = document.getElementById('modal');
-  modal.classList.add('hidden');
-  modal.classList.remove('flex');
-}
-</script>
 </body>
 </html>
